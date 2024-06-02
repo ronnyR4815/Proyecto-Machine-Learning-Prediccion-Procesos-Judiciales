@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { ReactiveFormsModule, FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -8,32 +7,22 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @Component({
-  selector: 'app-carga-documentos',
+  selector: 'app-analisis-documento',
   standalone: true,
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatProgressBarModule],
-  templateUrl: './carga-documentos.component.html',
-  styleUrl: './carga-documentos.component.css'
+  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatProgressBarModule],
+  templateUrl: './analisis-documento.component.html',
+  styleUrl: './analisis-documento.component.css'
 })
-export class CargaDocumentosComponent {
-
-  formCarga: FormGroup;
+export class AnalisisDocumentoComponent {
   selectedFile: File | null = null;
   loading = false;
-
-  constructor(private fb: FormBuilder) {
-    this.formCarga = this.fb.group({
-      titulo: ['', Validators.required],
-      resultado: ['', Validators.required]
-    })
-  }
+  // data = null;
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file && file.type === 'application/pdf') {
       this.selectedFile = file;
-      this.formCarga.get('titulo')?.setValue(file.name); // Establece el nombre del archivo como título
     } else {
-      // Manejar el caso en que no se selecciona un archivo PDF
       console.error('Por favor, selecciona un archivo PDF.');
     }
   }
@@ -46,10 +35,8 @@ export class CargaDocumentosComponent {
     this.loading = true;
     const formData = new FormData();
     formData.append('filePdf', this.selectedFile);
-    formData.append('resultado', this.formCarga.get('resultado')?.value);
-    formData.append('nombre', this.formCarga.get('titulo')?.value);
 
-    fetch('https://fead-45-235-142-196.ngrok-free.app/guardar_documento', {
+    fetch('https://fead-45-235-142-196.ngrok-free.app/analizar_documento', {
       method: 'POST',
       body: formData
     })
@@ -61,6 +48,7 @@ export class CargaDocumentosComponent {
       })
       .then(data => {
         console.log('Respuesta del servidor:', data);
+        // this.data = data
         this.loading = false;
       })
       .catch(error => {

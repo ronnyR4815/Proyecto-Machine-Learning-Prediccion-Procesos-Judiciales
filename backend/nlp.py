@@ -3,13 +3,13 @@ from nltk.corpus import stopwords
 from nltk.stem.snowball import SnowballStemmer
 from nltk.tokenize import word_tokenize
 from sklearn.feature_extraction.text import CountVectorizer
+# from sklearn.feature_extraction.text import TfidfVectorizer
 from scipy.cluster.hierarchy import linkage, fcluster
 from sklearn.metrics.cluster import adjusted_rand_score, normalized_mutual_info_score, adjusted_mutual_info_score
 import PyPDF2
 import re
 import numpy as np
 import os
-
 
 # nltk.download('stopwords')
 # nltk.download('punkt')
@@ -68,10 +68,29 @@ def preprocess_text(docs):
       text.append(preprocessed_text)
     return text
 
-# for i, docs in enumerate(docs, start=1):
-#     database.guardarDocumento(i, docs)
+def procesar_documentos(docs):
+    # Bolsa de palabras
+    vectorizador = CountVectorizer()
+    matriz_bow = vectorizador.fit_transform(docs)
+    # Term Frecuency
+    tf = matriz_bow.toarray()
+    # Pesado de Term Frequency
+    wtf = np.where(tf > 0 , 1 + np.log10(tf) , 0)
+    # Frecuencias
+    freq = np.count_nonzero(wtf , axis=0)
+    # Frecuencia de la bolsa
+    idf = np.log10(wtf.shape[1] / freq)
+    # Matriz TF-IDF
+    tf_idf = wtf * idf
+    tf_idf = tf_idf.transpose()
 
-# request = database.listarDocumentos()
-# datos = []
-# for i in request:
-#     datos.append(i["doc"])
+    return tf_idf
+
+def procesar_matriz_distancias(tf_idf):
+    # Calcule la matriz de distancias para los documentos
+    norms = np.linalg.norm(tf_idf, axis=0, keepdims=True)
+    tfidfm_unit = tf_idf / norms
+    similarity_matrix = np.dot(tfidfm_unit.T, tfidfm_unit)
+    distance_matrix = 1-np.round(similarity_matrix,6)
+
+    return distance_matrix

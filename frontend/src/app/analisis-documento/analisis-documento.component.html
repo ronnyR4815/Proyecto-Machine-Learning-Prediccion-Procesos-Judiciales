@@ -1,0 +1,13 @@
+<form>
+    <mat-form-field (click)="uploadFile.click()">
+        <input type="file" (change)="onFileSelected($event)" hidden #uploadFile accept="application/pdf">
+        <mat-label>Cargar documento</mat-label>
+        <input matInput type="text" [value]="selectedFile?.name" readonly>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" (click)="onUpload()">Enviar</button>    
+</form>
+
+@if (loading) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+}
