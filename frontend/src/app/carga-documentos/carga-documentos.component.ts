@@ -33,7 +33,6 @@ export class CargaDocumentosComponent {
       this.selectedFile = file;
       this.formCarga.get('titulo')?.setValue(file.name); // Establece el nombre del archivo como título
     } else {
-      // Manejar el caso en que no se selecciona un archivo PDF
       console.error('Por favor, selecciona un archivo PDF.');
     }
   }
@@ -49,7 +48,7 @@ export class CargaDocumentosComponent {
     formData.append('resultado', this.formCarga.get('resultado')?.value);
     formData.append('nombre', this.formCarga.get('titulo')?.value);
 
-    fetch('https://fead-45-235-142-196.ngrok-free.app/guardar_documento', {
+    fetch('https://fead-45-235-142-196.ngrok-free.app/test', {
       method: 'POST',
       body: formData
     })

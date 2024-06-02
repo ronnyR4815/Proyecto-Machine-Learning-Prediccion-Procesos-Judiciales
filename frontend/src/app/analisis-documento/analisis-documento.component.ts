@@ -16,7 +16,6 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 export class AnalisisDocumentoComponent {
   selectedFile: File | null = null;
   loading = false;
-  // data = null;
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
@@ -34,21 +33,15 @@ export class AnalisisDocumentoComponent {
     }
     this.loading = true;
     const formData = new FormData();
-    formData.append('filePdf', this.selectedFile);
+    formData.append('file', this.selectedFile);
 
-    fetch('https://fead-45-235-142-196.ngrok-free.app/analizar_documento', {
+    fetch('https://fead-45-235-142-196.ngrok-free.app/test', {
       method: 'POST',
       body: formData
     })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Error en la solicitud.');
-        }
-        return response.json();
-      })
+      .then(response => response.json())
       .then(data => {
         console.log('Respuesta del servidor:', data);
-        // this.data = data
         this.loading = false;
       })
       .catch(error => {
