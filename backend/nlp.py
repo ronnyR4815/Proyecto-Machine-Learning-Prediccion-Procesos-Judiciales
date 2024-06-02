@@ -94,3 +94,17 @@ def procesar_matriz_distancias(tf_idf):
     distance_matrix = 1-np.round(similarity_matrix,6)
 
     return distance_matrix
+
+def full_inverted_index(*documentos):
+    index = {}
+    for doc_id, documento in enumerate(documentos, 1):
+        palabras = documento.split()
+        for posicion, palabra in enumerate(palabras, 1):
+            if palabra not in index:
+                index[palabra] = {doc_id : [1, [posicion]]}
+            elif doc_id not in index[palabra]:
+                index[palabra][doc_id] = [1, [posicion]]
+            else:
+                index[palabra][doc_id][0] += 1
+                index[palabra][doc_id][1].append(posicion)
+    return index

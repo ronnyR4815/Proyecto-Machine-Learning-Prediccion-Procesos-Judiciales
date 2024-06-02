@@ -1,0 +1,32 @@
+mat-form-field {
+    width: 100%;
+    display: block;
+}
+
+button {
+    margin-top: 20px;
+}
+
+mat-progress-bar {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    /* Asegura que el contenedor tome toda la anchura de la página */
+    height: 100vh;
+    /* Utiliza el 100% de la altura de la ventana del navegador */
+}
+
+app-analisis-documento, form {
+    flex: 1;
+    /* Asigna a cada componente un espacio igual en el contenedor */
+    border: 1px solid #ccc;
+    /* Añade un borde para visualizar los límites de cada componente */
+    box-sizing: border-box;
+    /* Asegura que el padding y border estén incluidos en el ancho definido */
+    padding: 20px;
+    /* Añade algo de padding dentro de cada componente */
+}

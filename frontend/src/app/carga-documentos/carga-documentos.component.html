@@ -1,30 +1,34 @@
-<form [formGroup]="formCarga">
-    <mat-form-field (click)="uploadFile.click()">
-        <input type="file" (change)="onFileSelected($event)" hidden #uploadFile accept="application/pdf">
-        <mat-label>Cargar documento</mat-label>
-        <button mat-icon-button>
-            <mat-icon>attach_file</mat-icon>
-        </button>
-        <input matInput [value]="formCarga.get('titulo')?.value" readonly>
-    </mat-form-field>
+<div class="container">
+    <form [formGroup]="formCarga">
+        <mat-form-field (click)="uploadFile.click()">
+            <input type="file" (change)="onFileSelected($event)" hidden #uploadFile accept="application/pdf">
+            <mat-label>Cargar documento</mat-label>
+            <button mat-icon-button>
+                <mat-icon>attach_file</mat-icon>
+            </button>
+            <input matInput [value]="formCarga.get('titulo')?.value" readonly>
+        </mat-form-field>
 
-    <mat-form-field>
-        <mat-label>Título del documento</mat-label>
-        <input matInput formControlName="titulo">
-    </mat-form-field>
+        <mat-form-field>
+            <mat-label>Título del documento</mat-label>
+            <input matInput formControlName="titulo">
+        </mat-form-field>
 
-    <mat-form-field>
-        <mat-label>Veredicto</mat-label>
-        <mat-select formControlName="resultado">
-            <mat-option value="culpabilidad">Culpabilidad</mat-option>
-            <mat-option value="inocencia">Inocencia</mat-option>
-        </mat-select>
-    </mat-form-field>
+        <mat-form-field>
+            <mat-label>Veredicto</mat-label>
+            <mat-select formControlName="resultado">
+                <mat-option value="culpabilidad">Culpabilidad</mat-option>
+                <mat-option value="inocencia">Inocencia</mat-option>
+            </mat-select>
+        </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit" (click)="onUpload()">Enviar</button>
-    @if (loading) {
+        <button mat-raised-button color="primary" type="submit" (click)="onUpload()">Enviar</button>
+        @if (loading) {
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-    }
-    
-</form>
+        }
 
+    </form>
+
+    <app-analisis-documento />
+
+</div>

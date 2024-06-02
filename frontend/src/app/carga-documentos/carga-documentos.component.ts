@@ -6,11 +6,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { AnalisisDocumentoComponent } from '../analisis-documento/analisis-documento.component';
 
 @Component({
   selector: 'app-carga-documentos',
   standalone: true,
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatProgressBarModule],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatProgressBarModule, AnalisisDocumentoComponent],
   templateUrl: './carga-documentos.component.html',
   styleUrl: './carga-documentos.component.css'
 })

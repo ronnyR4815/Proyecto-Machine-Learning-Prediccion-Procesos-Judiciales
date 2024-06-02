@@ -64,8 +64,11 @@ def analizar_documento():
     else:
         print("Culpable")
         return jsonify({"message": "Culpable"}), 200
-    
-    return jsonify({'message': 'Ruta de test'}), 200
+
+@app.route('/bolsa_palabras', methods=['GET'])
+def bolsa_palabras():
+    documentos = db.extraerDocumentos()
+    return nlp.full_inverted_index(*documentos)
 
 
 if __name__ == "__main__":

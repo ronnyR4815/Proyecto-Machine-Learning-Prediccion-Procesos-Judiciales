@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { CargaDocumentosComponent } from './carga-documentos/carga-documentos.component';
 import { AnalisisDocumentoComponent } from './analisis-documento/analisis-documento.component';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CargaDocumentosComponent, AnalisisDocumentoComponent],
+  imports: [CargaDocumentosComponent, AnalisisDocumentoComponent, RouterLink, RouterLinkActive, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
