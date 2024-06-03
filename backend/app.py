@@ -31,7 +31,7 @@ def guardar_documento():
     
     return jsonify({'message': 'Documento procesado y guardado exitosamente.'}), 200
 
-@app.route('/analizar_documento', methods=['POST'])
+@app.route('/test', methods=['POST'])
 def analizar_documento():
     filePdf = request.files['file']
 
@@ -45,25 +45,24 @@ def analizar_documento():
     docs.append(doc_prediccion)
 
     tf_idf = nlp.procesar_documentos(docs)
+    distance_matrix = nlp.procesar_matriz_distancias(tf_idf)
 
-    last_index = tf_idf.shape[1] - 1
+    # Índice del último documento
+    last_index = distance_matrix.shape[0] - 1
 
     inocente_index = last_index - 2
     culpable_index = last_index - 1
 
-    # Compara las filas de last_index con las de inocente_index y culpable_index para determinar si son distintas de cero
-    filas_distintas_a_cero_inocente = tf_idf[:, last_index] != 0
-    filas_distintas_a_cero_culpable = tf_idf[:, last_index] != 0
+    # Distancias entre el último documento y los documentos "inocente" y "culpable"
+    distance_to_innocent = distance_matrix[last_index, inocente_index]
+    distance_to_guilty = distance_matrix[last_index, culpable_index]
 
-    # Suma los valores de las filas distintas de cero en la columna inocente_index
-    suma_inocente = np.sum(tf_idf[filas_distintas_a_cero_inocente, inocente_index])
-
-    # Suma los valores de las filas distintas de cero en la columna culpable_index
-    suma_culpable = np.sum(tf_idf[filas_distintas_a_cero_culpable, culpable_index])
-
-    if suma_inocente > suma_culpable:
+    # Determina cuál de los dos documentos tiene la menor distancia
+    if distance_to_innocent <= distance_to_guilty:
+        print("Inocente")
         return jsonify({"message": "Inocente"}), 200
     else:
+        print("Culpable")
         return jsonify({"message": "Culpable"}), 200
 
 @app.route('/bolsa_palabras', methods=['GET'])
