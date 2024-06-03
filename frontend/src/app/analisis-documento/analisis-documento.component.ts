@@ -48,7 +48,11 @@ export class AnalisisDocumentoComponent {
     const formData = new FormData();
     formData.append('file', this.selectedFile);
 
+<<<<<<< Updated upstream
     fetch('http://127.0.0.1:5000/analizar_documento', {
+=======
+    fetch('https://fead-45-235-142-196.ngrok-free.app/analizar_documento', {
+>>>>>>> Stashed changes
       method: 'POST',
       body: formData
     })

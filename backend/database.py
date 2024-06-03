@@ -15,6 +15,11 @@ def extraerDocumentos():
     documentos = collection.find({})
     return [doc['documento'] for doc in documentos]
 
+def getDocumentos():
+    collection = db['documentos']
+    documentos = collection.find({}, {'_id': 1, 'nombre': 1, 'resultado': 1})  # Proyección para incluir solo id, nombre y resultado
+    return list(documentos)
+
 def guardarMatrizTfidf(tfidf):
     collection = db["matriz_tfidf"]
     collection.drop()

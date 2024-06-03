@@ -69,8 +69,15 @@ def analizar_documento():
 @app.route('/bolsa_palabras', methods=['GET'])
 def bolsa_palabras():
     documentos = db.extraerDocumentos()
-    return nlp.full_inverted_index(*documentos)
+    index = nlp.full_inverted_index(*documentos)
+    return jsonify(index), 200
 
+@app.route('/get_documentos', methods=['GET'])
+def validaciones():
+    documentos = db.getDocumentos()
+    for doc in documentos:
+        doc['_id'] = str(doc['_id'])
+    return jsonify(documentos), 200
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')

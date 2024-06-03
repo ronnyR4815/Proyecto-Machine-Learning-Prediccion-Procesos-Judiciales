@@ -49,7 +49,7 @@ export class CargaDocumentosComponent {
     formData.append('resultado', this.formCarga.get('resultado')?.value);
     formData.append('nombre', this.formCarga.get('titulo')?.value);
 
-    fetch('https://fead-45-235-142-196.ngrok-free.app/test', {
+    fetch('https://fead-45-235-142-196.ngrok-free.app/guardar_documento', {
       method: 'POST',
       body: formData
     })

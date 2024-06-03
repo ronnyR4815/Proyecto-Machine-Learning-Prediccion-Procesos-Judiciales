@@ -15,10 +15,10 @@ export class BolsaPalabrasComponent implements OnInit {
 
   fetchBolsaPalabras(): void {
   this.loading = true;
-    fetch('https://fead-45-235-142-196.ngrok-free.app/bolsa_palabras')
+    fetch('http://127.0.0.1:5000/bolsa_palabras')
       .then(response => response.json())
       .then(data => {
-        this.invertedIndex = data;
+        this.invertedIndex = data as Dictionary;
         this.loading = false;
       })
       .catch(error => {

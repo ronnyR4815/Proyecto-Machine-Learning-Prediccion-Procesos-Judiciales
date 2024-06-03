@@ -1,0 +1,16 @@
+<table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Resultado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let documento of listaDocumentos">
+        <td>{{ documento._id }}</td>
+        <td>{{ documento.nombre }}</td>
+        <td>{{ documento.resultado }}</td>
+      </tr>
+    </tbody>
+  </table>
