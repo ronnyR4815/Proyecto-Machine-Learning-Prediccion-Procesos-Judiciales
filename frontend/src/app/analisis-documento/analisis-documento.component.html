@@ -2,10 +2,16 @@
     <input type="file" (change)="onFileSelected($event)" hidden #uploadFile accept="application/pdf">
     <mat-label>Cargar documento</mat-label>
     <input matInput type="text" [value]="selectedFile?.name" readonly>
-</mat-form-field>
-
-<button mat-raised-button color="primary" type="submit" (click)="onUpload()">Enviar</button>
-
-@if (loading) {
-<mat-progress-bar mode="indeterminate" color="warn"></mat-progress-bar>
-}
+  </mat-form-field>
+  
+  <button mat-raised-button color="primary" type="submit" (click)="onUpload()">Enviar</button>
+  
+  <mat-progress-bar *ngIf="loading" mode="indeterminate" color="warn"></mat-progress-bar>
+  
+  <!-- Card para mostrar el mensaje del backend -->
+  <mat-card *ngIf="message" class="response-card" [ngStyle]="{'background-color': message === 'Culpable' ? 'red' : (message === 'Inocente' ? 'green' : 'white')}">
+    <mat-card-content>
+      <p><b>{{ message }}</b></p>
+    </mat-card-content>
+  </mat-card>
+  
